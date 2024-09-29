@@ -21,17 +21,66 @@ class BigNumArithmetic {
         BigNumArithmetic BNA = new BigNumArithmetic(args[0]);
     
         // method calls will go here like BNA.read(filename) etc...
+        
+        BNA.read();
 
     }
     
-    void read(String filename) {
-        
+    void read() {
+        try {
+            FileReader filereader = new FileReader(filename);
+            BufferedReader bufferedreader = new BufferedReader(filereader);
 
+            String line = "";
 
+             while ((line = bufferedreader.readLine()) != null) {
+             //   System.out.println(line);
+             //  System.out.println("==================="); 
+                String cleaned = cleanExpression(line);
+                System.out.println(cleaned);
+              //  System.out.println("------------------");
+            }
 
+            bufferedreader.close();
+
+        } catch (IOException e) {
+            return;
+        }        
+    } // end read
+
+    public String cleanExpression(String expression) {
+        String cleaned = "";
+        String[] numbers = expression.split("\\s+"); // split based on whitespace
+
+        for (int i=0; i<numbers.length; ++i) {
+            String number = numbers[i]; // get our number
+            String cleanedNumber = cleanNumber(number); // pass it to be cleaned
+
+            if (!cleanedNumber.equals("0") || cleaned.length() > 0) { // first make sure its not 0
+                if (!cleaned.isEmpty()) { // if its not empty give it a space
+                    cleaned += " ";
+                }
+                cleaned += cleanedNumber; // add our cleaned number to the cleaned string do the loop again
+            }
+        }
+        return cleaned; // at the end of the loop return the cleaned line
     }
 
+    public String cleanNumber(String number) {
+        int index = 0;
 
+         for (index = 0; index < number.length(); index++) {
+            if (number.charAt(index) != '0') { // if the number isnt 0 break
+                break;
+            }
+        }
+
+        if (index == number.length()) { 
+            return ""; // if the index hasnt moved then return nothing
+        } else {
+            return number.substring(index); // retrun the substring of the number using index
+        }
+    }
 
 
 
