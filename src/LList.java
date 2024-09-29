@@ -4,10 +4,10 @@ import java.util.NoSuchElementException;
 
 // Linked list implementation
 class LList implements List {
-    private Link head;         // Pointer to list header
-    private Link tail;         // Pointer to last element
-    private Link curr;         // Access to current element
-    private int listSize;      // Size of list
+    private Link head = null;         // Pointer to list header
+    private Link tail = null;         // Pointer to last element
+    private Link curr = null;         // Access to current element
+    private int listSize = 0;      // Size of list
 
     // Constructors
     LList(int size) {
@@ -32,7 +32,7 @@ class LList implements List {
 
         //Change the old curr value to the new value (it), the pointer doesn't change
         curr.setElement(it);
-        if (tail == curr) tail = curr.next();  // New tail
+        if (tail == curr) {tail = curr.next();}  // New tail
         listSize++;
         return true;
     }
@@ -56,7 +56,7 @@ class LList implements List {
         }
         Object it = curr.element();             // Remember value
         curr.setElement(curr.next().element()); // Pull forward the next element
-        if (curr.next() == tail) tail = curr;   // Removed last, move tail
+        if (curr.next() == tail) {tail = curr;}   // Removed last, move tail
         curr.setNext(curr.next().next());       // Point around unneeded link
         listSize--;                             // Decrement element count
         return it;                              // Return value
@@ -72,16 +72,16 @@ class LList implements List {
 
     // Move curr one step left; no change if now at front
     public void prev() {
-        if (head.next() == curr) return; // No previous element
+        if (head.next() == curr) {return;} // No previous element
         Link temp = head;
         // March down list until we find the previous element
-        while (temp.next() != curr) temp = temp.next();
+        while (temp.next() != curr) {temp = temp.next();}
         curr = temp;
     }
 
     // Move curr one step right; no change if now at end
     public void next() {
-        if (curr != tail) curr = curr.next();
+        if (curr != tail) {curr = curr.next();}
     }
 
     public int length() {
@@ -93,16 +93,16 @@ class LList implements List {
     public int currPos() {
         Link temp = head.next();
         int i;
-        for (i = 0; curr != temp; i++)
-            temp = temp.next();
+        for (i = 0; curr != temp; i++){
+            temp = temp.next();}
         return i;
     }
 
     // Move down list to "pos" position
     public boolean moveToPos(int pos) {
-        if ((pos < 0) || (pos > listSize)) return false;
+        if ((pos < 0) || (pos > listSize)){ return false;}
         curr = head.next();
-        for (int i = 0; i < pos; i++) curr = curr.next();
+        for (int i = 0; i < pos; i++) {curr = curr.next();}
         return true;
     }
 
@@ -113,9 +113,9 @@ class LList implements List {
 
     // Return current element value.
     public Object getValue() throws NoSuchElementException {
-        if (curr == tail) // No current element
+        if (curr == tail){ // No current element
             throw new NoSuchElementException("getvalue() in LList has current of " + curr + " and size of "
-                    + listSize + " that is not a a valid element");
+                    + listSize + " that is not a a valid element");}
         return curr.element();
     }
 
