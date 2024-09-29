@@ -19,7 +19,7 @@ class LStack implements Stack {
 
 // Remove "it" from stack
   public Object pop() {           
-    if (top == null) return null;
+    if (top == null){ return null;}
     Object it = top.element();
     top = top.next();
     size--;
@@ -27,7 +27,7 @@ class LStack implements Stack {
   }
 
   public Object topValue() {      // Return top value
-    if (top == null) return null;
+    if (top == null) {return null;}
     return top.element();
   }
 
