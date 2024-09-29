@@ -1,0 +1,41 @@
+ 1 import java.io.FileReader;
+  2 import java.io.BufferedReader;
+  3 import java.io.IOException;
+  4 
+  5 
+  6 class BigNumArithmetic {
+  7     
+  8     private String filename;
+  9     
+ 10     public BigNumArithmetic(String filename) {
+ 11         this.filename = filename;
+ 12     }
+ 13     
+ 14     public static void main(String args[]) {
+ 15         
+ 16         if (args.length != 1) {
+ 17             System.out.println("Invalid Usage");
+ 18             return;
+ 19         }
+ 20         
+ 21         BigNumArithmetic BNA = new BigNumArithmetic(args[0]);
+ 22         
+ 23         // method calls will go here like BNA.read(filename) etc...
+ 24     
+ 25     }
+ 26     
+ 27     void read(String filename) {
+ 28     
+ 29     
+ 30     
+ 31     
+ 32     }
+ 33 
+ 34 
+ 35 
+ 36 
+ 37 
+ 38 
+ 39 
+ 40 }
+~                                        
