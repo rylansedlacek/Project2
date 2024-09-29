@@ -30,7 +30,8 @@ class BigNumArithmetic {
                 String line = stdin.nextLine(); 
                 String cleaned = cleanExpression(line); 
               //  System.out.println(cleaned); // TODO remove this after testing
-              //  evaluate(cleaned); // Each time we read in a line we will evaluate it
+              //
+              //  ADD EVALUATE LOGIC HERE
             }
             stdin.close(); 
         } catch (IOException e) {
@@ -72,82 +73,6 @@ class BigNumArithmetic {
         }
     } // end clean number
     
-
-    public void evaluate(String expression) {
-        //TODO discuss these notes during MONDAY MEETING
-
-        //here will be the stack logic
-        // First we will create a stack like the instructions tell us to do
-        //
-        // we will then split up the CLEANED string we get passed based on (" ")
-        //
-        // then using a for loop probably we will loop through the array looking for operatos
-        // if we find an operator we pop twice, and call the appropriate method, like add, mult
-        //
-        // if we dont we first create a LList of the number we have using stringToList
-        // then we push that LList onto the stack
-        //
-        // once the loop concludes, the only thing left in the stack SHOULD be the result so
-        // we pop it out of the stack
-        //
-        // then we print out the result, in the format provided 2 3 += 5 cool
-        //
-        // NOTE:
-        // we can use the other methods add, multiply, exponent to do the actual math, so this
-        // doesnt get too gunked up like it is right now with comments, might be more
-        // efficient to not use a stack of linked lists, but this is my idea, 
-
-    }
-
-    public boolean operatorCheck(String op) { // this might be uneeded just wrote it down on paper
-       // this is just a helper
-        if (op.equals("+")) {
-            return true;
-        } else if (op.equals("*")) {
-            return true;
-        } else if (op.equals("^")) {
-            return true;
-        }
-        return false; //default
-    } //end operatorCheck
-
-    public LList doOperation(LList top, LList bottom, String op) {
-        // this is just a helper
-        LList result = new LList();
-        if (op.equals("+")) {
-            result = add(top,bottom);
-        } else if (op.equals("*")) {
-            result = multiply(top,bottom);
-        } else if (op.equals("^")) {
-            result = exponent(top,bottom);
-        } else {
-            result = null; //TODO make sure we put logic in for null operation
-        }
-        return result;
-    } //end doOperation
-
-    public LList add(LList top, LList bottom) {
-        return null; //placeholder will explain my reasoning at meeting
-        
-        // we will expect to get a top and bottom LList, to do the math how explained by PC
-        // so we might have 3 - 2 and 4 - 6
-        // we can add them, we will need logic for when we have lists of differing length
-        // so if we had like 0 - 1 and 9 - 9 - 9. Addtionally we need to watch for this case
-        // where out list size will go up by one like above!!!
-        //
-        // all we plan to return is the result, so LList result will be returned after we do
-        // the math likely with a for loop
-    } // end add
-
-    //THESE ARE FOR LATER
-    public LList multiply(LList top, LList bottom) {
-        return null; //TODO SAME AS ABOVE
-    } // end multiply
-
-    public LList exponent(LList top, LList bottom) {
-        return null; //TODO SAME AS ABOVE
-    } // end exponent
-
     //your method is close for the stringToList,
     // we just need to use a reverse for loop instead and we are golden,
     // I learned how to do this on leetcode this summer here is what I'm thinking
