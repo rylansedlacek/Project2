@@ -25,6 +25,7 @@ class BigNumArithmetic {
         return stringList;
     }
 
+    //TODO change the return value on if(listSize < 1)
     // convert a LinkedList to a string
     public String listToString(LList list) {
         // initialize an empty string to populate with values in list
