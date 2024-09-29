@@ -1,5 +1,5 @@
-import java.io.FileReader;
-import java.io.BufferedReader;
+import java.util.Scanner;
+import java.io.File;
 import java.io.IOException;
 
 
@@ -26,27 +26,22 @@ class BigNumArithmetic {
 
     }
     
-    void read() {
+   public void read() {
         try {
-            FileReader filereader = new FileReader(filename);
-            BufferedReader bufferedreader = new BufferedReader(filereader);
+            File file = new File(filename); // make a new file object
+            Scanner stdin = new Scanner(file); // make our scanner
 
-            String line = "";
-
-             while ((line = bufferedreader.readLine()) != null) {
-             //   System.out.println(line);
-             //  System.out.println("==================="); 
-                String cleaned = cleanExpression(line);
-                System.out.println(cleaned);
-              //  System.out.println("------------------");
+            while (stdin.hasNextLine()) { // while the scanner has a next line
+                String line = stdin.nextLine(); // set string line to the line
+                String cleaned = cleanExpression(line); // clean the line with clean
+                System.out.println(cleaned); // TODO remove this after testing
             }
 
-            bufferedreader.close();
-
+            stdin.close(); // close the scanner
         } catch (IOException e) {
-            return;
-        }        
-    } // end read
+            return; // return if we catch input output exception
+      }   
+    } // end read 
 
     public String cleanExpression(String expression) {
         String cleaned = "";
