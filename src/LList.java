@@ -174,6 +174,7 @@ class LList implements List {
         return foundVal;
     } // end get(int index)
 
+    //TODO remove this.printList() call and remove printList method
     public void reverseLink() {
         if (head.next() == tail) {
             return;
