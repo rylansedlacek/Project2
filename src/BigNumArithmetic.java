@@ -73,23 +73,6 @@ class BigNumArithmetic {
         }
     } // end clean number
     
-    //your method is close for the stringToList,
-    // we just need to use a reverse for loop instead and we are golden,
-    // I learned how to do this on leetcode this summer here is what I'm thinking
-    
-    /*
-    public LList stringToList(String str) {
-        LList stringList = new LList();
-
-        for (int i = str.length() - 1; i>=0; --i) {
-            char stringChar = str.charAt(i);
-            int charVal = Integer.parseInt(String.valueOf(stringChar));
-            stringList.append(charVal);
-        }
-        return stringList;
-    } 
-    */
-
     // Store the values in the List in the same order they appear in the string
     //"123" = head-->1-->2-->3-->tail
     public LList stringToList(String str) {
