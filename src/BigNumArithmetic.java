@@ -18,7 +18,7 @@ class BigNumArithmetic {
         }
 
         BigNumArithmetic BNA = new BigNumArithmetic(args[0]);
-        BNA.read();
+        BNA.read(); //TODO this doesnt need to be commented out works fine with it here ask 9/31
 
 /*      Comments below are the way I tested add. I just changed the values for first and second
         and went through the whole test file, and confirmed correct results for each. For this to work,
@@ -40,8 +40,8 @@ class BigNumArithmetic {
                 String line = stdin.nextLine(); 
                 String cleaned = cleanExpression(line);
 
-              //  ADD EVALUATE LOGIC HERE
-                evaluate(cleaned); //TODO this wont work until later
+              
+                evaluate(cleaned); 
 
             }
             stdin.close(); 
@@ -51,7 +51,6 @@ class BigNumArithmetic {
    } // end read 
    
     public void evaluate(String expression) {
-        //TODO when you pass values to add, pass them as LinkedLists
         LStack stack = new LStack(); // create the stacl
         String[] split = expression.split("\\s+"); // split based on white space
         
