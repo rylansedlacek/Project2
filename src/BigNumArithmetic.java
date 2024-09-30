@@ -18,15 +18,17 @@ class BigNumArithmetic {
         }
 
         BigNumArithmetic BNA = new BigNumArithmetic(args[0]);
-        //TODO uncomment BNA.read() below
-        //BNA.read();
+        BNA.read();
 
-        //TODO delete everything below until end of main method, just used for testing
+/*      Comments below are the way I tested add. I just changed the values for first and second
+        and went through the whole test file, and confirmed correct results for each. For this to work,
+        The line above this comment BNA.read() must be commented out or removed
         String first = "165";
         String second = "56";
         LList firstList = BNA.stringToList(first);
         LList secondList = BNA.stringToList(second);
         BNA.add(firstList, secondList);
+*/
     } // end main
     
    public void read() {
@@ -118,9 +120,6 @@ class BigNumArithmetic {
         return result;
     } // end do op
 
-    public String add(String num1, String num2) { // TODO
-        return "";
-    } // end add
 
     public String multiply(String num1, String num2) { // TODO
         return "";
