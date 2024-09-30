@@ -124,4 +124,60 @@ class BigNumArithmetic {
         return str;
     }// end listToString
 
+    public LList add(LList top, LList bottom) {
+
+        // Collect the sizes of top and bottom
+        int topSize = top.length();
+        int bottomSize = bottom.length();
+
+        // variable to store the number of leading zeros that must be
+        // added to the smaller LList when top and bottom  are not the same size initially
+        int zerosNeeded;
+
+        if (topSize > bottomSize) {
+            // set zerosNeeded to the result of topSize - bottomSize
+            // this gives us the number of leading zeros that must be added to the front of bottom
+            zerosNeeded = topSize - bottomSize;
+
+            // count variable to control following while loop
+            int count = 0;
+            // ensure bottom's current pointer is at head.next()
+            bottom.moveToStart();
+            while (count < zerosNeeded) {
+                // insert a number (zerosNeeded) of zeros to the front of bottom until topSize = bottomSize;
+                bottom.insert(0);
+                count++;
+            }// end while (count < zerosNeeded)
+        } // end if topSize > bottomSize
+
+        if (bottomSize > topSize) {
+            // set zerosNeeded to the result of bottomSize - topSize
+            // this gives us the number of leading zeros that must be added to the front of top
+            zerosNeeded = bottomSize - topSize;
+
+            // cout variable to control following while loop
+            int count = 0;
+            // ensure top's current pointer is at head.next()
+            top.moveToStart();
+            while (count < zerosNeeded) {
+                // insert a number (zerosNeeded) of zeros into the front of top until topSize = bottomSize
+                top.insert(0);
+                count++; 
+            }// end while (count < zerosNeeded)
+        } // end if (bottomSize > topSize)
+
+
+        return null; //placeholder will explain my reasoning at meeting
+
+        // we will expect to get a top and bottom LList, to do the math how explained by PC
+        // so we might have 3 - 2 and 4 - 6
+        // we can add them, we will need logic for when we have lists of differing length
+        // so if we had like 0 - 1 and 9 - 9 - 9. Addtionally we need to watch for this case
+        // where out list size will go up by one like above!!!
+        //
+        // all we plan to return is the result, so LList result will be returned after we do
+        // the math likely with a for loop
+    } // end add
+
+
 }
