@@ -41,6 +41,7 @@ class BigNumArithmetic {
    } // end read 
    
     public void evaluate(String expression) {
+        //TODO when you pass values to add, pass them as LinkedLists
         LStack stack = new LStack(); // create the stacl
         String[] split = expression.split("\\s+"); // split based on white space
         
