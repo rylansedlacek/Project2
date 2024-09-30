@@ -164,7 +164,7 @@ class BigNumArithmetic {
         }
 
         if (index == number.length()) { 
-            return ""; // if the index hasnt moved then return nothing
+            return "0"; // if the index hasnt moved then return nothing
         } else {
             return number.substring(index); // retrun the substring of the number using index
         }
