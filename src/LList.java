@@ -174,23 +174,43 @@ class LList implements List {
         return foundVal;
     } // end get(int index)
 
-    //TODO remove this.printList() call and remove printList method
+/**
+     * This method reverses a Linked List in place
+     * If the list is originally head-->1-->2-->tail
+     * after reverseLink is called, the list will be head-->2-->1-->tail
+     */
     public void reverseLink() {
+        // If the list is empty, do nothing
         if (head.next() == tail) {
             return;
         }
+        // prev is used to store the previous link
         Link prev = null;
-        curr = head;
+        // temporary head link is created to traverse the list without changing the actual head
+        Link temp = head;
+        // next is used to store the next link in the progression
         Link next;
-        while (curr != null) {
-            next = curr.next();
-            curr.setNext(prev);
-            prev = curr;
-            curr = next;
+        // When temp == null, the whole list has been traversed
+        while (temp != null) {
+            // point next to the next link in the list
+            next = temp.next();
+            //point temp's pointer to the previous node
+            temp.setNext(prev);
+            // assign prev to the same link as temp
+            prev = temp;
+            // move temp to next, which is the next node
+            temp = next;
         }
+        // prev is now where tail originally was, so make that the new head
         head = prev;
-        this.printList();
-
+        // Now traverse the list again to add a new tail, starting at new head, but using temp in head's place
+        temp = head;
+        // Move temp to the very end of the list
+        while (temp.next() != null) {
+            temp = temp.next();
+        }
+        // Now that temp is at the end of the list, make temp the new tail
+        tail = temp;
     }
 
     /**
