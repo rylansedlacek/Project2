@@ -67,6 +67,8 @@ class BigNumArithmetic {
             }
         }
 
+        if (expression.isEmpty()) {return;}
+
         if (countNum  - 1 != countOps) { // if we have 1 2 +, have 2 and 1, logic gives us 1 and 1
             System.out.println(expression + " = ");
             return; // if its bad we print blank and return 
@@ -76,10 +78,12 @@ class BigNumArithmetic {
             String check = split[i]; // this is our checker
 
             if (operatorCheck(check)) { // if its an operator
-                String num1 = stack.pop().toString(); // pop first two
-                String num2 = stack.pop().toString(); //~~~~~~~
-                String result = doOperation(num1,num2,check); // do the operation
-                stack.push(result);// push the result
+                String top = stack.pop().toString();
+                LList topList = stringToList(top);
+                String bottom = stack.pop().toString();
+                LList bottomList = stringToList(bottom);
+                LList result = doOperation(topList,bottomList,check);
+                stack.push(listToString(result));
             } else {
                 stack.push(check); // otherwise we throw the number on waiting for an operator
             }
@@ -103,30 +107,30 @@ class BigNumArithmetic {
         }
     } // end op check
 
-    public String doOperation (String num1, String num2, String op) {
+    public LList doOperation (LList top,LList bottom, String op) {
         boolean test = operatorCheck(op);
-        String result = "";
-        if (test == false) { return ""; }
+        LList result = new LList();
+        if (test == false) { return null; }
         
         if (op.equals("+")) {
-            result = add(num1,num2);
+            result = add(top,bottom);
         } else if (op.equals("*")) {
-            result = multiply(num1,num2);
+            result = multiply(top,bottom);
         } else if (op.equals("^")) {
-            result = exponent(num1,num2);
+            result = exponent(top,bottom);
         } else {
-            result = "";
+            result = null;
         }
         return result;
     } // end do op
 
 
-    public String multiply(String num1, String num2) { // TODO
-        return "";
+    public LList multiply(LList top, LList bottom) { // TODO
+        return null;
     } // end multiply
 
-    public String exponent(String num1, String num2) { //TODO
-        return "";
+    public LList exponent(LList top, LList bottom) { //TODO
+        return null;
     } // end exponent
 
 
@@ -340,15 +344,7 @@ class BigNumArithmetic {
         // Remove leading zeros if any exist in convertedList
         String cleanedFinalSum = cleanNumber(convertedList);
 
-        return cleanedFinalSum;
+        return stringToList(cleanedFinalSum);
 
-        // we will expect to get a top and bottom LList, to do the math how explained by PC
-        // so we might have 3 - 2 and 4 - 6
-        // we can add them, we will need logic for when we have lists of differing length
-        // so if we had like 0 - 1 and 9 - 9 - 9. Addtionally we need to watch for this case
-        // where out list size will go up by one like above!!!
-        //
-        // all we plan to return is the result, so LList result will be returned after we do
-        // the math likely with a for loop
     } // end add
 }
