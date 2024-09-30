@@ -18,7 +18,15 @@ class BigNumArithmetic {
         }
 
         BigNumArithmetic BNA = new BigNumArithmetic(args[0]);
-        BNA.read();
+        //TODO uncomment BNA.read() below
+        //BNA.read();
+
+        //TODO delete everything below until end of main method, just used for testing
+        String first = "165";
+        String second = "56";
+        LList firstList = BNA.stringToList(first);
+        LList secondList = BNA.stringToList(second);
+        BNA.add(firstList, secondList);
     } // end main
     
    public void read() {
@@ -212,6 +220,17 @@ class BigNumArithmetic {
 
     public LList add(LList top, LList bottom) {
 
+        //TODO There are several print calls in this class
+        // They were all used for testing
+        // all are commented out using multiLine comment style
+        // REMOVE THEM BEFORE TURNING IN ASSIGNMENT
+/*
+        System.out.println("printing original top");
+        top.printList();
+        System.out.println("Printing original bottom");
+        bottom.printList();
+*/
+        
         // Collect the sizes of top and bottom
         int topSize = top.length();
         int bottomSize = bottom.length();
@@ -252,8 +271,77 @@ class BigNumArithmetic {
             }// end while (count < zerosNeeded)
         } // end if (bottomSize > topSize)
 
+/*
+        System.out.println("printing new top");
+        top.printList();
+        System.out.println("Printing new bottom");
+        bottom.printList();
+*/
+        // reverse the order of both top and bottom
+        top.reverseLink();
+        bottom.reverseLink();
 
-        return null; //placeholder will explain my reasoning at meeting
+/*
+        System.out.println("printing reversed top");
+        top.printList();
+        System.out.println("Printing reversed bottom");
+        bottom.printList();
+*/
+        // apply the actual addition logic
+
+        // Create a new, empty LList to store the result of adding top to bottom
+        LList result = new LList();
+
+        // Variable to store the remainder value when adding 2 numbers together
+        // default value is 0. If the result of adding 2 numbers is >= 10, remainder will be changed to 1
+        int remainder = 0;
+
+        // Ensure top and bottom's current pointer is at the start of the lists
+        top.moveToStart();
+        bottom.moveToStart();
+
+        // Update the values of topSize and bottomSize, since list sizes may have changed
+        topSize = top.length();
+        bottomSize = bottom.length();
+
+        // Execute the following loop the number of times equal to topSize
+        // At this point, topSize = bottomSize. topSize chosen in this loop arbitrarily, bottomSize would also work
+        for (int i = 0; i < topSize; i++) {
+            // collect the values at each Link in both top and bottom
+            int topVal = (Integer) top.getValue();
+            int bottomVal = (Integer) bottom.getValue();
+            
+            // Calculate the sum 
+            int sum = topVal + bottomVal + remainder;
+
+            // If the two numbers added together are 10 or more, there will be a remainder value of 1
+            // the sum must be changed so that we only get the second number
+            // Ex: if sum = 19. We want to keep 9 and change remainder to 1, which will be added to the next sum in the next iteration
+            if (sum >= 10) {
+                remainder = 1;
+                sum = sum % 10;
+            }
+            else {
+                remainder = 0;
+            }
+            // insert sum into the first Link of the result LList
+            result.insert(sum);
+            // increment top and bottom so that we process the following links in both next
+            top.next();
+            bottom.next();
+        }
+
+        // if the last summation in the for loop left a remainder of 1, insert that into result's first Link
+        if (remainder == 1) {
+            result.insert(remainder);
+        }
+        // convert result LList to a String
+        String convertedList = listToString(result);
+
+        // Remove leading zeros if any exist in convertedList
+        String cleanedFinalSum = cleanNumber(convertedList);
+
+        return cleanedFinalSum;
 
         // we will expect to get a top and bottom LList, to do the math how explained by PC
         // so we might have 3 - 2 and 4 - 6
@@ -264,6 +352,4 @@ class BigNumArithmetic {
         // all we plan to return is the result, so LList result will be returned after we do
         // the math likely with a for loop
     } // end add
-
-
 }
