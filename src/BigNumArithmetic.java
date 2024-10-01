@@ -124,9 +124,7 @@ class BigNumArithmetic {
     } // end do op
 
 
-    public LList multiply(LList top, LList bottom) { // TODO
-        return null;
-    } // end multiply
+    
 
     public LList exponent(LList top, LList bottom) { //TODO
         return null;
@@ -346,4 +344,61 @@ class BigNumArithmetic {
         return stringToList(cleanedFinalSum);
 
     } // end add
+
+   public LList multiply(LList top, LList bottom) {
+
+        top.reverseLink();
+        bottom.reverseLink();
+
+        LList result = new LList();
+
+        result.append(0); // may not be needed
+
+        int bottomPosition = 0; // keep track of bottom position
+
+         bottom.moveToStart(); // just to confirm we are at start of list    
+
+        for (int i = 0; i<bottom.length(); ++i) {
+            int bottomDigit = (Integer) bottom.getValue();
+            LList middle = new LList(); // result for this row 
+            int carry = 0;
+
+        //this will add zeroes as needed
+            for (int j=0; j<bottomPosition; ++j) {
+                middle.append(0);
+            }   
+
+            top.moveToStart(); // again just confirming we are indded at start
+            for (int j=0; j<top.length(); ++j) {
+                int topDigit = (Integer) top.getValue();
+                int product = topDigit * bottomDigit + carry; // THIS IS WHERE WE MULTIPLY
+
+                carry = product / 10; // will explain
+                // basically making carry for next operation
+
+                middle.append(product % 10); //this adds on the remainder if needed
+
+                top.next(); // moving to the next digit
+
+            }      
+
+            if (carry >0) {
+                middle.append(carry);
+
+            }   
+
+           result = add(result, middle); // adding each time
+    
+           bottom.next();
+          bottomPosition++; //moving to next digit in the bottom
+        }   
+
+        result.reverseLink(); // this is the same stuff you did as before
+        String cleanedFinal = cleanNumber(listToString(result));
+        return stringToList(cleanedFinal);
+
+    }   
+
 }
+
+

@@ -7,7 +7,7 @@ public LList multiply(LList top, LList bottom) {
 
     result.append(0); // may not be needed
 
-    int bottomPosition = 0; // keep track of bottom position
+    //int bottomPosition = 0; // keep track of bottom position
 
     bottom.moveToStart(); // just to confirm we are at start of list    
 
@@ -43,7 +43,7 @@ public LList multiply(LList top, LList bottom) {
            result = add(result, middle); // adding each time
             
            bottom.next();
-           bottomPosition++; //moving to next digit in the bottom
+          // bottomPosition++; //moving to next digit in the bottom
     }
 
     result.reverseLink(); // this is the same stuff you did as before
