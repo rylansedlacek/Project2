@@ -347,8 +347,8 @@ class BigNumArithmetic {
 
    public LList multiply(LList top, LList bottom) {
 
-        top.reverseLink();
-        bottom.reverseLink();
+   //     top.reverseLink();
+   //     bottom.reverseLink();
 
         LList result = new LList();
 
@@ -364,9 +364,9 @@ class BigNumArithmetic {
             int carry = 0;
 
         //this will add zeroes as needed
-            for (int j=0; j<bottomPosition; ++j) {
+           for (int j=0; j<bottomPosition; ++j) {
                 middle.append(0);
-            }   
+           }   
 
             top.moveToStart(); // again just confirming we are indded at start
             for (int j=0; j<top.length(); ++j) {
@@ -382,10 +382,14 @@ class BigNumArithmetic {
 
             }      
 
-            if (carry >0) {
-                middle.append(carry);
+           if (carry >0) {
+               middle.append(carry);
 
-            }   
+           }  
+
+    //       System.out.println("MIDDLE");
+     //      middle.printList();
+           
 
            result = add(result, middle); // adding each time
     
@@ -397,7 +401,13 @@ class BigNumArithmetic {
         String cleanedFinal = cleanNumber(listToString(result));
         return stringToList(cleanedFinal);
 
-    }   
+    }  
+    
+
+
+
+    
+
 
 }
 

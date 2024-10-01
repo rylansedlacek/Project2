@@ -220,9 +220,10 @@ class LList implements List {
         Link temp = head.next();
         while (temp != tail) {
             if (temp != null) {
-                System.out.println(temp.element());
+                System.out.print(temp.element());
                 temp = temp.next();
             }
         }
+        System.out.println();
     }
 }

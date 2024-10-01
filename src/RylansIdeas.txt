@@ -78,7 +78,58 @@ multiply 5 from bottom in each digit of top
    return this
 
 
+public LList multiply(LList top, LList bottom) {
 
+    top.reverseLink();
+    bottom.reverseLink();
+
+    LList result = new LList();
+
+
+    bottom.moveToStart();
+    for (int i=0; i<bottom.length(); ++i) {
+
+        int bottomNum = (Integer) bottom.getValue();
+
+        LList middleRes = new LList();
+
+        int carryVal = 0;
+
+        top.moveToStart();
+        for (int j=0; j<top.length(); ++j) {
+            int topNum = (Integer) top.getValue();
+            
+            int product = topNum * bottomNum + carry;
+
+
+        }
+    
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
 
 
 
