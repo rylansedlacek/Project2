@@ -1,0 +1,51 @@
+ for every digit in the smaller number being multiplied, a new LList must be created
+    if 123 X 54, 2 new LLists must be created 
+
+
+321
+ 54
+
+4 x 1 = 4, r = 0   head --> 4
+4 x 2 = 8, r = 0   head -->4-->8
+4 x 3 = 12, r = 1, 12 % 10 = 2: head -->4-->8-->2
+Since we're done, add remainder to list
+                head --> 4-->8-->2-->1
+add 0 to end for addition ease
+                head -->4-->8-->2-->1-->0
+
+5 x 1 = 5, r = 0  -->5
+5 x 2 = 10, r = 1, 10 % 10 = 0: 5-->0
+5 x 3 = 15, r = 1, 15 + previous remainder = 16, 16 % 10 = 6: 5-->0-->6
+        r = 1 so add 1 to list
+                                            5-->0-->6-->1
+Inser 0 at front                            0-->5-->0-->6-->1
+
+
+4-->8-->2-->1-->0   +
+0-->5-->0-->6-->1
+=
+43371
+
+IN STANDARD ORDER
+We need to initialize remainder to 0.
+Remainder will be added to each multiplication value, each time
+
+123
+ 45
+5*3 = 15, 15 + R = 15, R = 1, 15%10 = 5: HEAD-->5
+5*2 = 10 + prevRemainder = 11, remainder=1, 11%10=1: head-->5-->1
+5*1 = 5 + prevRem = 6, remainder=0: head-->5-->1-->6
+
+4*3=12, R=1, 12%10=2: head-->2
+4*8=8 + prevRem = 9, R=0: head-->2-->9
+4*1=4 + prevRem = 4, R=0: head-->2-->9-->4
+
+LLists to be added
+5-->1-->6-->0   +
+0-->2-->9-->4
+   
+Passing these to add will reverse them first, adding the following 2 lists
+0-->6-->1-->5  +
+4-->9-->2-->0
+=
+5535
