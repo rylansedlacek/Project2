@@ -82,3 +82,27 @@ public LList add(LList top, LList bottom) {
         return null; //TODO SAME AS ABOVE
     } // end exponent
 
+
+
+public LList multiply(LList top, LList bottom) {
+    
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
