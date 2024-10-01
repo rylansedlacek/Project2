@@ -346,7 +346,14 @@ class BigNumArithmetic {
     } // end add
 
    public LList multiply(LList top, LList bottom) {
+        int remainder = 0;
+        LList result = new LList();
+        
+        // unsure
+        top.moveToStart();
+        bottom.moveToStart();
 
+/*
    //     top.reverseLink();
    //     bottom.reverseLink();
 
@@ -400,8 +407,8 @@ class BigNumArithmetic {
         result.reverseLink(); // this is the same stuff you did as before
         String cleanedFinal = cleanNumber(listToString(result));
         return stringToList(cleanedFinal);
-
-    }  
+*/
+    } // end multiply  
     
 
 
