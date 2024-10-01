@@ -346,20 +346,13 @@ class BigNumArithmetic {
     } // end add
 
    public LList multiply(LList top, LList bottom) {
-        int remainder = 0;
-        LList result = new LList();
-        
-        // unsure
-        top.moveToStart();
-        bottom.moveToStart();
 
-/*
-   //     top.reverseLink();
+          //     top.reverseLink();
    //     bottom.reverseLink();
 
         LList result = new LList();
 
-        result.append(0); // may not be needed
+       result.append(0); // may not be needed
 
         int bottomPosition = 0; // keep track of bottom position
 
@@ -379,8 +372,9 @@ class BigNumArithmetic {
             for (int j=0; j<top.length(); ++j) {
                 int topDigit = (Integer) top.getValue();
                 int product = topDigit * bottomDigit + carry; // THIS IS WHERE WE MULTIPLY
-
+  //              System.out.println("PRODUCT: " + product);
                 carry = product / 10; // will explain
+    //                                  System.out.println("CARRY" + carry);
                 // basically making carry for next operation
 
                 middle.append(product % 10); //this adds on the remainder if needed
@@ -394,8 +388,8 @@ class BigNumArithmetic {
 
            }  
 
-    //       System.out.println("MIDDLE");
-     //      middle.printList();
+      //   System.out.println("MIDDLE");
+      //   middle.printList();
            
 
            result = add(result, middle); // adding each time
@@ -407,7 +401,7 @@ class BigNumArithmetic {
         result.reverseLink(); // this is the same stuff you did as before
         String cleanedFinal = cleanNumber(listToString(result));
         return stringToList(cleanedFinal);
-*/
+
     } // end multiply  
     
 
