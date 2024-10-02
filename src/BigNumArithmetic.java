@@ -134,6 +134,8 @@ class BigNumArithmetic {
         for (int i=0; i<numbers.length; ++i) {
             String number = numbers[i]; 
             String cleanedNumber = cleanNumber(number); // pass it to be cleaned
+                                                        //
+
 
             if (!cleanedNumber.equals("0") || cleaned.length() > 0) { // first make sure its not 0
                 if (!cleaned.isEmpty()) { // if its not empty give it a space
@@ -147,7 +149,18 @@ class BigNumArithmetic {
 
     public String cleanNumber(String number) {
         int index = 0;
+        int zeroCounter = 0;
 
+        /*
+        for (int i=0; i<number.length(); ++i) {
+            if (number.charAt(i) == '0') {
+                zeroCounter++;
+             //   System.out.println(zeroCounter);
+            }
+        }
+
+        if (zeroCounter == number.length()) { return "0";}
+*/
          for (index = 0; index < number.length(); index++) {
             if (number.charAt(index) != '0') { // if the number isnt 0 break
                 break;
@@ -339,37 +352,33 @@ class BigNumArithmetic {
 
     public LList multAdd(LList num1, LList num2) { 
                                                    
-    num1.moveToStart();
-    num2.moveToStart();
+        num1.moveToStart();
+        num2.moveToStart();
 
-    LList result = new LList();
-    int carry = 0;
+        LList result = new LList();
+        int carry = 0;
 
-    // loop through both of the lists
-    while (!num1.isAtEnd() || !num2.isAtEnd() || carry != 0) {
-        int sum = carry;
+        // loop through both of the lists
+        while (!num1.isAtEnd() || !num2.isAtEnd() || carry != 0) {
+            int sum = carry;
 
-        //add digit from num1
-        if (!num1.isAtEnd()) {
-            sum += (Integer) num1.getValue();
-            num1.next();
+            if (!num1.isAtEnd()) { // add from num 1
+                sum += (Integer) num1.getValue();
+                num1.next();
+            }
+
+            if (!num2.isAtEnd()) { // add from num 2
+                sum += (Integer) num2.getValue();
+                num2.next();
+            }
+
+            result.append(sum % 10); // append our sum
+
+            carry = sum / 10; // find the new carry vakue and store it
         }
 
-        //add digit from num2
-        if (!num2.isAtEnd()) {
-            sum += (Integer) num2.getValue();
-            num2.next();
-        }
-
-        //append the sum
-        result.append(sum % 10);
-
-        //find out the new carry value
-        carry = sum / 10;
+        return result;
     }
-
-    return result;
-}
 
     
     public LList multiply(LList top, LList bottom) {
