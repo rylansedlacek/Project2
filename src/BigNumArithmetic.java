@@ -11,6 +11,10 @@ class BigNumArithmetic {
         this.filename = filename;
     }
 
+    // TODO write a readme here just to explain what we are doing
+
+
+
     public static void main(String args[]) {
         if (args.length != 1) {
             System.out.println("Invalid Usage");
@@ -18,17 +22,7 @@ class BigNumArithmetic {
         }
 
         BigNumArithmetic BNA = new BigNumArithmetic(args[0]);
-        BNA.read(); //TODO this doesnt need to be commented out works fine with it here ask 9/31
-
-/*      Comments below are the way I tested add. I just changed the values for first and second
-        and went through the whole test file, and confirmed correct results for each. For this to work,
-        The line above this comment BNA.read() must be commented out or removed
-        String first = "165";
-        String second = "56";
-        LList firstList = BNA.stringToList(first);
-        LList secondList = BNA.stringToList(second);
-        BNA.add(firstList, secondList);
-*/
+        BNA.read(); 
     } // end main
     
    public void read() {
@@ -160,6 +154,8 @@ class BigNumArithmetic {
             }
         }
 
+        
+
         if (index == number.length()) { 
             return "0"; // if the index hasnt moved then return nothing
         } else {
@@ -218,13 +214,8 @@ class BigNumArithmetic {
         return str;
     }// end listToString
 
-    
+   
     public LList add(LList top, LList bottom) {
-
-        //TODO There are several print calls in this class
-        // They were all used for testing
-        // all are commented out using multiLine comment style
-        // REMOVE THEM BEFORE TURNING IN ASSIGNMENT
 
  //        System.out.println("printing original top");
  //       top.printList();
@@ -346,11 +337,8 @@ class BigNumArithmetic {
     } // end add
    
 
-    public LList multAdd(LList num1, LList num2) { //TODO MIGHT NOT BE NEEDED AT ALL
-                                                   //ONLY WAY I COULD GET IT TO WORK
-                                                   //Because this one doesnt mess around
-                                                   //with 0's like you would with normal add
-                                                   //So it works for multiplication
+    public LList multAdd(LList num1, LList num2) { 
+                                                   
     num1.moveToStart();
     num2.moveToStart();
 
@@ -429,10 +417,6 @@ class BigNumArithmetic {
         return stringToList(cleanedFinal);
     } // end multiply   
 
-
-
-
-    
 
 
 } // end class
