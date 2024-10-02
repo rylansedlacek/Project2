@@ -84,6 +84,9 @@ class BigNumArithmetic {
 
             if (!stack.isEmpty()) { // if the stack is NOT EMPTY
                 String finalRes = stack.pop().toString(); // get the final result
+
+                
+
                 System.out.println(expression + " = " + finalRes); // and print it hooray
             }
     } // end evaluate
@@ -130,18 +133,18 @@ class BigNumArithmetic {
     public String cleanExpression(String expression) {
         String cleaned = "";
         String[] numbers = expression.split("\\s+"); // split based on whitespace
-
+                                                    
         for (int i=0; i<numbers.length; ++i) {
             String number = numbers[i]; 
             String cleanedNumber = cleanNumber(number); // pass it to be cleaned
-                                                        //
-
-
+            
             if (!cleanedNumber.equals("0") || cleaned.length() > 0) { // first make sure its not 0
                 if (!cleaned.isEmpty()) { // if its not empty give it a space
                     cleaned += " ";
                 }
                 cleaned += cleanedNumber; // add cleaned number to cleaned string do loop again
+            } else if (cleanedNumber.equals("0")) {
+                cleaned += "0";
             }
         }
         return cleaned; 
@@ -151,31 +154,21 @@ class BigNumArithmetic {
         int index = 0;
         int zeroCounter = 0;
 
-        /*
-        for (int i=0; i<number.length(); ++i) {
-            if (number.charAt(i) == '0') {
-                zeroCounter++;
-             //   System.out.println(zeroCounter);
-            }
-        }
-
-        if (zeroCounter == number.length()) { return "0";}
-*/
          for (index = 0; index < number.length(); index++) {
             if (number.charAt(index) != '0') { // if the number isnt 0 break
                 break;
             }
         }
-
         
-
-        if (index == number.length()) { 
+        if (index == number.length() && number.length() != 0) {
             return "0"; // if the index hasnt moved then return nothing
         } else {
             return number.substring(index); // retrun the substring of the number using index
         }
     } // end clean number
-    
+   
+
+
     // Store the values in the List in the same order they appear in the string
     //"123" = head-->1-->2-->3-->tail
     public LList stringToList(String str) {
