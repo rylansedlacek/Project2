@@ -218,18 +218,19 @@ class BigNumArithmetic {
         return str;
     }// end listToString
 
+    
     public LList add(LList top, LList bottom) {
 
         //TODO There are several print calls in this class
         // They were all used for testing
         // all are commented out using multiLine comment style
         // REMOVE THEM BEFORE TURNING IN ASSIGNMENT
-/*
-        System.out.println("printing original top");
-        top.printList();
-        System.out.println("Printing original bottom");
-        bottom.printList();
-*/
+
+ //        System.out.println("printing original top");
+ //       top.printList();
+ //       System.out.println("Printing original bottom");
+ //       bottom.printList();
+
         
         // Collect the sizes of top and bottom
         int topSize = top.length();
@@ -239,6 +240,7 @@ class BigNumArithmetic {
         // added to the smaller LList when top and bottom  are not the same size initially
         int zerosNeeded;
 
+    
         if (topSize > bottomSize) {
             // set zerosNeeded to the result of topSize - bottomSize
             // this gives us the number of leading zeros that must be added to the front of bottom
@@ -271,22 +273,20 @@ class BigNumArithmetic {
             }// end while (count < zerosNeeded)
         } // end if (bottomSize > topSize)
 
-/*
-        System.out.println("printing new top");
-        top.printList();
-        System.out.println("Printing new bottom");
-        bottom.printList();
-*/
+      //  System.out.println("printing new top");
+       // top.printList();
+       // System.out.println("Printing new bottom");
+       // bottom.printList();
         // reverse the order of both top and bottom
         top.reverseLink();
         bottom.reverseLink();
 
-/*
-        System.out.println("printing reversed top");
-        top.printList();
-        System.out.println("Printing reversed bottom");
-        bottom.printList();
-*/
+
+  //        System.out.println("printing reversed top");
+  //      top.printList();
+    //    System.out.println("Printing reversed bottom");
+      //  bottom.printList();
+
         // apply the actual addition logic
 
         // Create a new, empty LList to store the result of adding top to bottom
@@ -344,72 +344,97 @@ class BigNumArithmetic {
         return stringToList(cleanedFinalSum);
 
     } // end add
+   
 
-   public LList multiply(LList top, LList bottom) {
+    public LList multAdd(LList num1, LList num2) { //TODO MIGHT NOT BE NEEDED AT ALL
+                                                   //ONLY WAY I COULD GET IT TO WORK
+                                                   //Because this one doesnt mess around
+                                                   //with 0's like you would with normal add
+                                                   //So it works for multiplication
+    num1.moveToStart();
+    num2.moveToStart();
 
-          //     top.reverseLink();
-   //     bottom.reverseLink();
+    LList result = new LList();
+    int carry = 0;
 
-        LList result = new LList();
+    // loop through both of the lists
+    while (!num1.isAtEnd() || !num2.isAtEnd() || carry != 0) {
+        int sum = carry;
 
-       result.append(0); // may not be needed
+        //add digit from num1
+        if (!num1.isAtEnd()) {
+            sum += (Integer) num1.getValue();
+            num1.next();
+        }
+
+        //add digit from num2
+        if (!num2.isAtEnd()) {
+            sum += (Integer) num2.getValue();
+            num2.next();
+        }
+
+        //append the sum
+        result.append(sum % 10);
+
+        //find out the new carry value
+        carry = sum / 10;
+    }
+
+    return result;
+}
+
+    
+    public LList multiply(LList top, LList bottom) {
+
+        top.reverseLink(); // reverse our lists here
+        bottom.reverseLink();
+
+         LList result = new LList();
+        result.append(0); 
 
         int bottomPosition = 0; // keep track of bottom position
+        bottom.moveToStart(); // confirm we are at start of list
 
-         bottom.moveToStart(); // just to confirm we are at start of list    
-
-        for (int i = 0; i<bottom.length(); ++i) {
+        for (int i = 0; i < bottom.length(); ++i) { // iterate through bottom first
             int bottomDigit = (Integer) bottom.getValue();
-            LList middle = new LList(); // result for this row 
+            LList middle = new LList(); // result for intermidiate result
             int carry = 0;
 
-        //this will add zeroes as needed
-           for (int j=0; j<bottomPosition; ++j) {
-                middle.append(0);
-           }   
+            for (int j = 0; j < bottomPosition; ++j) {
+                middle.append(0); // append 0's as needed
+            }
 
-            top.moveToStart(); // again just confirming we are indded at start
-            for (int j=0; j<top.length(); ++j) {
-                int topDigit = (Integer) top.getValue();
-                int product = topDigit * bottomDigit + carry; // THIS IS WHERE WE MULTIPLY
-  //              System.out.println("PRODUCT: " + product);
-                carry = product / 10; // will explain
-    //                                  System.out.println("CARRY" + carry);
-                // basically making carry for next operation
+            top.moveToStart(); // confirm at start
+            for (int j = 0; j < top.length(); ++j) {
+                int topDigit = (Integer) top.getValue(); // now iterate through top
+                int product = topDigit * bottomDigit + carry; // create product
+                carry = product / 10; // calc the carry for next steps
+                middle.append(product % 10); // append product
+                top.next(); // move to next digit in top number
+            }
 
-                middle.append(product % 10); //this adds on the remainder if needed
+            if (carry > 0) {
+                middle.append(carry);
+            }
 
-                top.next(); // moving to the next digit
 
-            }      
+        result = multAdd(result, middle); // add partial result to our full result count
 
-           if (carry >0) {
-               middle.append(carry);
+        bottom.next(); // mmove to next bottom digit
+        bottomPosition++; // 
+    }
 
-           }  
-
-      //   System.out.println("MIDDLE");
-      //   middle.printList();
-           
-
-           result = add(result, middle); // adding each time
-    
-           bottom.next();
-          bottomPosition++; //moving to next digit in the bottom
-        }   
-
-        result.reverseLink(); // this is the same stuff you did as before
+        result.reverseLink(); // reverse the result back to proper order
         String cleanedFinal = cleanNumber(listToString(result));
         return stringToList(cleanedFinal);
+    } // end multiply   
 
-    } // end multiply  
+
+
+
     
 
 
-
-    
-
-
-}
+} // end class
 
 
