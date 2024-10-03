@@ -121,14 +121,6 @@ class BigNumArithmetic {
     } // end do op
 
 
-    
-
-    public LList exponent(LList top, LList bottom) { //TODO
-        return null;
-    } // end exponent
-
-
-
    
     public String cleanExpression(String expression) {
         String cleaned = "";
@@ -418,6 +410,30 @@ class BigNumArithmetic {
         String cleanedFinal = cleanNumber(listToString(result));
         return stringToList(cleanedFinal);
     } // end multiply   
+
+    /*
+      Function exp_by_squaring_iterative(x, n)
+    if n < 0 then
+      x := 1 / x;
+      n := -n;
+    if n = 0 then return 1
+    y := 1;
+    while n > 1 do
+      if n is odd then
+        y := x * y;
+        n := n - 1;
+      x := x * x;
+      n := n / 2;
+    return x * y
+
+       */
+
+
+
+    public LList exponent(LList top, LList bottom) { //TODO
+        return null;
+    } // end exponent
+
 
 
 
