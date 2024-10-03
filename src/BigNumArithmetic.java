@@ -413,25 +413,64 @@ class BigNumArithmetic {
 
     /*
       Function exp_by_squaring_iterative(x, n)
-    if n < 0 then
-      x := 1 / x;
-      n := -n;
-    if n = 0 then return 1
+    if BOTTOM n = 0 then return 1
+
     y := 1;
-    while n > 1 do
-      if n is odd then
-        y := x * y;
-        n := n - 1;
-      x := x * x;
-      n := n / 2;
-    return x * y
+    while BOTTOMn > 1 do
+      if BOTTOMn is odd then
+        y := TOPx * y;
+        BOTTOMn := BOTTOMn - 1;
+      TOP x := TOPx * TOPx;
+      BOTTOMn := BOTTOMn / 2;
+    return TOPx * y
 
        */
 
 
 
-    public LList exponent(LList top, LList bottom) { //TODO
-        return null;
+    public LList exponent(LList bottom, LList top) { //TODO
+
+        // x = bottom
+        // n = top
+        // y = result
+        LList result = new LList();
+        top.moveToStart();
+        bottom.moveToStart();
+
+        // collect all of top's entries as one string
+        String bottomString = listToString(bottom);
+        int exponent = Integer.parseInt(bottomString);
+
+        System.out.println(exponent);
+        
+        if (exponent == 0) {
+            result.append(1);
+            return result;
+        }
+        
+        //Determine if the exponent is an even number
+        boolean expIsEven;
+        if (exponent % 2 == 0) {
+            expIsEven = true;
+        }
+        else {
+            expIsEven = false;
+        }
+        result.append(1);
+        while (exponent > 1) {  
+            if (!expIsEven) {
+                result = multiply(bottom, result);
+            }// end if
+            bottom = multiply(bottom, bottom);
+            exponent = exponent / 2;
+        } // end while exponent > 0
+
+        //int y = 1;
+
+        //TODO Change this append and return value
+        return result;
+
+        
     } // end exponent
 
 
