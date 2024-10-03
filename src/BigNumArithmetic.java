@@ -429,7 +429,6 @@ class BigNumArithmetic {
        */
 
 
-
     public LList exponent(LList top, LList bottom) { //TODO
         return null;
     } // end exponent
