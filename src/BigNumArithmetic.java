@@ -427,24 +427,34 @@ class BigNumArithmetic {
        */
 
 
-    public LList exponent(LList bottom, LList top) { //TODO
+    public LList exponent(LList n, LList x) { //TODO
 
         // x = bottom
         // n = top
         // y = result
-        LList result = new LList();
-        top.moveToStart();
-        bottom.moveToStart();
+        //
+        //
+        //
+        // Figure out how to fix the pointer, figure out why we get the wrong answer
+        LList y = new LList();
+        
+        x.moveToStart();
+        n.moveToStart();
+
+        LList newX = new LList(); // TODO FIX
+        for (int i=0; i<x.length(); ++i) {
+            newX.insert(x.get(i));
+        }
 
         // collect all of top's entries as one string
-        String bottomString = listToString(bottom);
+        String bottomString = listToString(n);
         int exponent = Integer.parseInt(bottomString);
 
-        System.out.println(exponent);
+       // System.out.println(exponent);
         
         if (exponent == 0) {
-            result.append(1);
-            return result;
+            y.append(1);
+            return y;
         }
         
         //Determine if the exponent is an even number
@@ -455,19 +465,20 @@ class BigNumArithmetic {
         else {
             expIsEven = false;
         }
-        result.append(1);
+
+        y.append(1);
         while (exponent > 1) {  
             if (!expIsEven) {
-                result = multiply(bottom, result);
+                y = multiply(x, y);
             }// end if
-            bottom = multiply(bottom, bottom);
+            x = multiply(x, newX); //TODO FIX
             exponent = exponent / 2;
         } // end while exponent > 0
 
         //int y = 1;
 
         //TODO Change this append and return value
-        return result;
+        return multiply(x, y);
 
         
     } // end exponent
