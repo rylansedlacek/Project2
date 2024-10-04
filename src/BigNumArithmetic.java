@@ -426,7 +426,7 @@ class BigNumArithmetic {
 
        */
 
-
+/*
     public LList exponent(LList n, LList x) { //TODO
 
         // x = bottom
@@ -441,10 +441,7 @@ class BigNumArithmetic {
         x.moveToStart();
         n.moveToStart();
 
-        LList newX = new LList(); // TODO FIX
-        for (int i=0; i<x.length(); ++i) {
-            newX.insert(x.get(i));
-        }
+   
 
         // collect all of top's entries as one string
         String bottomString = listToString(n);
@@ -459,7 +456,7 @@ class BigNumArithmetic {
         
         //Determine if the exponent is an even number
         boolean expIsEven;
-        if (exponent % 2 == 0) {
+        if (exponent % 2 == 1) {
             expIsEven = true;
         }
         else {
@@ -467,23 +464,53 @@ class BigNumArithmetic {
         }
 
         y.append(1);
-        while (exponent > 1) {  
+        while (exponent > 1) { 
+     LList newX = new LList();
+        newX = stringToList(listToString(x));
+    
             if (!expIsEven) {
-                y = multiply(x, y);
+                y = multiply(y, x);
             }// end if
             x = multiply(x, newX); //TODO FIX
-            exponent = exponent / 2;
+            exponent /= 2;
         } // end while exponent > 0
 
         //int y = 1;
 
         //TODO Change this append and return value
-        return multiply(x, y);
+        return multiply(y, x);
 
         
     } // end exponent
 
+  */ 
 
+    public LList exponent(LList n, LList x) {
+        LList y = new LList();
+        y.append(1); // firstly init our result to 1
+
+         String exponentString = listToString(n); // then convert our exponent to an int 
+         int exponent = Integer.parseInt(exponentString);
+
+
+        if (exponent == 0) { // if we try to square by zero we can just return y which is 1
+            return y; 
+        }   
+
+        while (exponent > 0) {
+
+            LList newX = new LList(); // do this to avoid mangling pointers!
+            newX = stringToList(listToString(x));
+
+            if (exponent % 2 == 1) { // if we have an odd exponent do this
+                y = multiply(y, x); // multiply resuly by x
+            }
+            x = multiply(x, newX); // here we square x
+
+            exponent /= 2; // then finally divide the exponent by 2
+        }
+        return y; 
+    }
 
 
 } // end class
