@@ -14,12 +14,12 @@ class BigNumArithmetic {
 
     public static void main(String args[]) {
         if (args.length != 1) {
-            System.out.println("Invalid Usage");
+            System.out.println("Invalid Usage"); // only one file permited
             return;
         }
 
-        BigNumArithmetic BNA = new BigNumArithmetic(args[0]);
-        BNA.read(); 
+        BigNumArithmetic BNA = new BigNumArithmetic(args[0]); // set our object
+        BNA.read(); // read the file
     } // end main
     
    public void read() {
@@ -27,13 +27,13 @@ class BigNumArithmetic {
             File file = new File(filename); // make a new file object
             Scanner stdin = new Scanner(file); 
 
-            while (stdin.hasNextLine()) { 
-                String line = stdin.nextLine(); 
-                String cleaned = cleanExpression(line);
+            while (stdin.hasNextLine()) { //while we have a line
+                String line = stdin.nextLine(); // read in the line
+                String cleaned = cleanExpression(line); // then clean the line of 0's and spaces
               
-                evaluate(cleaned); 
+                evaluate(cleaned); // finally evaluate it
             }
-            stdin.close(); 
+            stdin.close(); // close the scanner
         } catch (IOException e) {
             return; 
       }   
@@ -48,14 +48,14 @@ class BigNumArithmetic {
 
         for (int i=0; i<split.length; ++i) {
             boolean op = operatorCheck(split[i]);
-            if (op) { 
+            if (op) { // if its an operator count it
                 countOps++;
             } else {
-                countNum++;
+                countNum++; // otherwise count the numbers
             }
         }
 
-        if (expression.isEmpty()) {return;}
+        if (expression.isEmpty()) {return;} // if its an empty string we return nothing
 
         if (countNum  - 1 != countOps) { // if we have 1 2 +, have 2 and 1, logic gives us 1 and 1
             System.out.println(expression + " = ");
@@ -66,12 +66,12 @@ class BigNumArithmetic {
             String check = split[i]; // this is our checker
 
             if (operatorCheck(check)) { // if its an operator
-                String top = stack.pop().toString();
+                String top = stack.pop().toString(); // we pop out two values
                 LList topList = stringToList(top);
                 String bottom = stack.pop().toString();
                 LList bottomList = stringToList(bottom);
-                LList result = doOperation(topList,bottomList,check);
-                stack.push(listToString(result));
+                LList result = doOperation(topList,bottomList,check); // then we do the operation
+                stack.push(listToString(result)); // then we push the result to the stack
             } else {
                 stack.push(check); // otherwise we throw the number on waiting for an operator
             }
@@ -79,12 +79,11 @@ class BigNumArithmetic {
 
             if (!stack.isEmpty()) { // if the stack is NOT EMPTY
                 String finalRes = stack.pop().toString(); // get the final result
-
                 System.out.println(expression + " = " + finalRes); // and print it hooray
             }
     } // end evaluate
 
-    public boolean operatorCheck(String op) {
+    public boolean operatorCheck(String op) { // this is a helper method to make sure we have a valid operator
         if (op.equals("+")) {
             return true;
         } else if (op.equals("*")) {
@@ -96,12 +95,12 @@ class BigNumArithmetic {
         }
     } // end op check
 
-    public LList doOperation (LList top,LList bottom, String op) {
+    public LList doOperation (LList top,LList bottom, String op) { // helper method to call operation methods
         boolean test = operatorCheck(op);
         LList result = new LList();
-        if (test == false) { return null; }
+        if (test == false) { return null; } // if its not an operator we return nulll
         
-        if (op.equals("+")) {
+        if (op.equals("+")) { // based on the operator we either add, multiply, or exponent
             result = add(top,bottom);
         } else if (op.equals("*")) {
             result = multiply(top,bottom);
@@ -113,35 +112,39 @@ class BigNumArithmetic {
         return result;
     } // end do op
 
-    public String cleanExpression(String expression) {
+    public String cleanExpression(String expression) { // this cleans the entire line
         String cleaned = "";
         String[] numbers = expression.split("\\s+"); // split based on whitespace
                                                     
-        for (int i=0; i<numbers.length; ++i) {
+        for (int i=0; i<numbers.length; ++i) { // first we iterate through our split string
             String number = numbers[i]; 
-            String cleanedNumber = cleanNumber(number); // pass it to be cleaned
+            String cleanedNumber = cleanNumber(number); // pass it to be cleaned of zeroes and spaces
             
             if (!cleanedNumber.equals("0") || cleaned.length() > 0) { // first make sure its not 0
                 if (!cleaned.isEmpty()) { // if its not empty give it a space
                     cleaned += " ";
                 }
                 cleaned += cleanedNumber; // add cleaned number to cleaned string do loop again
-            } else if (cleanedNumber.equals("0")) {
-                cleaned += "0";
+            } else if (cleanedNumber.equals("0")) { // if it is zero then we just 
+                cleaned += "0"; // append zero
             }
         }
         return cleaned; 
     } // end clean
 
-    public String cleanNumber(String number) {
+    public String cleanNumber(String number) { // this is helper method to clean zeroes and spaces
         int index = 0;
         int zeroCounter = 0;
 
-         for (index = 0; index < number.length(); index++) {
+         for (index = 0; index < number.length(); index++) { // count until we hit something other than zero
             if (number.charAt(index) != '0') { // if the number isnt 0 break
                 break;
             }
         }
+
+        // if everything is even we assume its zero, because index would be even to length if we never hit zero
+        //
+        // otherwise we return the substring, because that is the point where there arent zeroes
         
         if (index == number.length() && number.length() != 0) {
             return "0"; // if the index hasnt moved then return nothing
@@ -322,14 +325,15 @@ class BigNumArithmetic {
     /*
      This function is used to supplement the multiply function. For regular addition
      add() function is used. When calculating addition from within multiply() function
-     muldAdd() is used
+     muldAdd() is used. This VERSION OF ADD DOES NOT APPEND ZEROES as they are already
+     appeneded within MULTIPLY()
     */
     public LList multAdd(LList num1, LList num2) { 
                                                    
-        num1.moveToStart();
+        num1.moveToStart(); // move both of our lists to the start
         num2.moveToStart();
 
-        LList result = new LList();
+        LList result = new LList(); // and make a list to store our result
         int carry = 0;
 
         // loop through both of the lists
@@ -338,15 +342,15 @@ class BigNumArithmetic {
 
             if (!num1.isAtEnd()) { // add from num 1
                 sum += (Integer) num1.getValue();
-                num1.next();
+                num1.next(); // move the pinter
             }
 
             if (!num2.isAtEnd()) { // add from num 2
                 sum += (Integer) num2.getValue();
-                num2.next();
+                num2.next(); // move the pointer
             }
 
-            result.append(sum % 10); // append our sum
+            result.append(sum % 10); // append the sum here to our result list
 
             carry = sum / 10; // find the new carry vakue and store it
         }
@@ -362,7 +366,7 @@ class BigNumArithmetic {
         top.reverseLink(); // reverse our lists here
         bottom.reverseLink();
 
-         LList result = new LList();
+         LList result = new LList(); // store the result in a new list
         result.append(0); 
 
         int bottomPosition = 0; // keep track of bottom position
@@ -386,7 +390,7 @@ class BigNumArithmetic {
                 top.next(); // move to next digit in top number
             }
 
-            if (carry > 0) {
+            if (carry > 0) { // if our carry value is not zero we can safely append it
                 middle.append(carry);
             }
 
@@ -394,12 +398,12 @@ class BigNumArithmetic {
         result = multAdd(result, middle); // add partial result to our full result count
 
         bottom.next(); // mmove to next bottom digit
-        bottomPosition++; // 
+        bottomPosition++; // increase our bottom position to the next number
     }
 
         result.reverseLink(); // reverse the result back to proper order
-        String cleanedFinal = cleanNumber(listToString(result));
-        return stringToList(cleanedFinal);
+        String cleanedFinal = cleanNumber(listToString(result)); // clean it
+        return stringToList(cleanedFinal); // return it
     } // end multiply   
 
     /*
