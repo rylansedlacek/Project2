@@ -2,7 +2,6 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
 
-
 class BigNumArithmetic {
 
     private String filename;
@@ -12,8 +11,6 @@ class BigNumArithmetic {
     }
 
     // TODO write a readme here just to explain what we are doing
-
-
 
     public static void main(String args[]) {
         if (args.length != 1) {
@@ -33,10 +30,8 @@ class BigNumArithmetic {
             while (stdin.hasNextLine()) { 
                 String line = stdin.nextLine(); 
                 String cleaned = cleanExpression(line);
-
               
                 evaluate(cleaned); 
-
             }
             stdin.close(); 
         } catch (IOException e) {
@@ -85,8 +80,6 @@ class BigNumArithmetic {
             if (!stack.isEmpty()) { // if the stack is NOT EMPTY
                 String finalRes = stack.pop().toString(); // get the final result
 
-                
-
                 System.out.println(expression + " = " + finalRes); // and print it hooray
             }
     } // end evaluate
@@ -120,8 +113,6 @@ class BigNumArithmetic {
         return result;
     } // end do op
 
-
-   
     public String cleanExpression(String expression) {
         String cleaned = "";
         String[] numbers = expression.split("\\s+"); // split based on whitespace
@@ -159,10 +150,11 @@ class BigNumArithmetic {
         }
     } // end clean number
    
-
-
-    // Store the values in the List in the same order they appear in the string
-    //"123" = head-->1-->2-->3-->tail
+    /*
+     Function to convert a String to a Linked List
+     Values are stored in the list in the same order they appear in the string
+     EX: "123" = head-->1-->2-->3-->tail
+    */
     public LList stringToList(String str) {
         // create a new Linked List to store all the strings
         LList stringList = new LList();
@@ -181,8 +173,9 @@ class BigNumArithmetic {
         return stringList;
     }
 
-    //TODO change the return value on if(listSize < 1)
-    // convert a LinkedList to a string
+    /*
+      Function to convert a Linked List to a String
+    */
     public String listToString(LList list) {
         // initialize an empty string to populate with values in list
         String str = "";
@@ -192,7 +185,7 @@ class BigNumArithmetic {
         
         // if the list is empty, there is nothing to do, so return
         if (listSize < 1) {
-            return "Empty list provided";
+            return str;
         }
 
         // ensure list.curr is at the start of the list
@@ -211,16 +204,12 @@ class BigNumArithmetic {
         }// end while
         return str;
     }// end listToString
-
    
+    /*
+     Function to add values stored in two linked lists together
+    */ 
     public LList add(LList top, LList bottom) {
-
- //        System.out.println("printing original top");
- //       top.printList();
- //       System.out.println("Printing original bottom");
- //       bottom.printList();
-
-        
+   
         // Collect the sizes of top and bottom
         int topSize = top.length();
         int bottomSize = bottom.length();
@@ -229,7 +218,6 @@ class BigNumArithmetic {
         // added to the smaller LList when top and bottom  are not the same size initially
         int zerosNeeded;
 
-    
         if (topSize > bottomSize) {
             // set zerosNeeded to the result of topSize - bottomSize
             // this gives us the number of leading zeros that must be added to the front of bottom
@@ -240,7 +228,8 @@ class BigNumArithmetic {
             // ensure bottom's current pointer is at head.next()
             bottom.moveToStart();
             while (count < zerosNeeded) {
-                // insert a number (zerosNeeded) of zeros to the front of bottom until topSize = bottomSize;
+                // insert a number (zerosNeeded) of zeros to the front of bottom 
+                //until topSize = bottomSize;
                 bottom.insert(0);
                 count++;
             }// end while (count < zerosNeeded)
@@ -248,7 +237,8 @@ class BigNumArithmetic {
 
         if (bottomSize > topSize) {
             // set zerosNeeded to the result of bottomSize - topSize
-            // this gives us the number of leading zeros that must be added to the front of top
+            // this gives us the number of leading zeros that must be 
+            //added to the front of top
             zerosNeeded = bottomSize - topSize;
 
             // cout variable to control following while loop
@@ -256,25 +246,16 @@ class BigNumArithmetic {
             // ensure top's current pointer is at head.next()
             top.moveToStart();
             while (count < zerosNeeded) {
-                // insert a number (zerosNeeded) of zeros into the front of top until topSize = bottomSize
+                // insert a number (zerosNeeded) of zeros into the front of 
+                //top until topSize = bottomSize
                 top.insert(0);
                 count++; 
             }// end while (count < zerosNeeded)
         } // end if (bottomSize > topSize)
 
-      //  System.out.println("printing new top");
-       // top.printList();
-       // System.out.println("Printing new bottom");
-       // bottom.printList();
         // reverse the order of both top and bottom
         top.reverseLink();
         bottom.reverseLink();
-
-
-  //        System.out.println("printing reversed top");
-  //      top.printList();
-    //    System.out.println("Printing reversed bottom");
-      //  bottom.printList();
 
         // apply the actual addition logic
 
@@ -282,7 +263,8 @@ class BigNumArithmetic {
         LList result = new LList();
 
         // Variable to store the remainder value when adding 2 numbers together
-        // default value is 0. If the result of adding 2 numbers is >= 10, remainder will be changed to 1
+        // default value is 0. If the result of adding 2 numbers is >= 10, 
+        //remainder will be changed to 1
         int remainder = 0;
 
         // Ensure top and bottom's current pointer is at the start of the lists
@@ -294,7 +276,8 @@ class BigNumArithmetic {
         bottomSize = bottom.length();
 
         // Execute the following loop the number of times equal to topSize
-        // At this point, topSize = bottomSize. topSize chosen in this loop arbitrarily, bottomSize would also work
+        // At this point, topSize = bottomSize. topSize chosen in this loop 
+        // arbitrarily, bottomSize would also work
         for (int i = 0; i < topSize; i++) {
             // collect the values at each Link in both top and bottom
             int topVal = (Integer) top.getValue();
@@ -303,9 +286,11 @@ class BigNumArithmetic {
             // Calculate the sum 
             int sum = topVal + bottomVal + remainder;
 
-            // If the two numbers added together are 10 or more, there will be a remainder value of 1
+            // If the two numbers added together are 10 or more, there will be a 
+            // remainder value of 1
             // the sum must be changed so that we only get the second number
-            // Ex: if sum = 19. We want to keep 9 and change remainder to 1, which will be added to the next sum in the next iteration
+            // Ex: if sum = 19. We want to keep 9 and change remainder to 1, 
+            // which will be added to the next sum in the next iteration
             if (sum >= 10) {
                 remainder = 1;
                 sum = sum % 10;
@@ -334,7 +319,11 @@ class BigNumArithmetic {
 
     } // end add
    
-
+    /*
+     This function is used to supplement the multiply function. For regular addition
+     add() function is used. When calculating addition from within multiply() function
+     muldAdd() is used
+    */
     public LList multAdd(LList num1, LList num2) { 
                                                    
         num1.moveToStart();
@@ -365,7 +354,9 @@ class BigNumArithmetic {
         return result;
     }
 
-    
+    /*
+    Function to multiply the numeric values stored in two Linked Lists
+    */
     public LList multiply(LList top, LList bottom) {
 
         top.reverseLink(); // reverse our lists here
@@ -412,79 +403,10 @@ class BigNumArithmetic {
     } // end multiply   
 
     /*
-      Function exp_by_squaring_iterative(x, n)
-    if BOTTOM n = 0 then return 1
-
-    y := 1;
-    while BOTTOMn > 1 do
-      if BOTTOMn is odd then
-        y := TOPx * y;
-        BOTTOMn := BOTTOMn - 1;
-      TOP x := TOPx * TOPx;
-      BOTTOMn := BOTTOMn / 2;
-    return TOPx * y
-
-       */
-
-/*
-    public LList exponent(LList n, LList x) { //TODO
-
-        // x = bottom
-        // n = top
-        // y = result
-        //
-        //
-        //
-        // Figure out how to fix the pointer, figure out why we get the wrong answer
-        LList y = new LList();
-        
-        x.moveToStart();
-        n.moveToStart();
-
-   
-
-        // collect all of top's entries as one string
-        String bottomString = listToString(n);
-        int exponent = Integer.parseInt(bottomString);
-
-       // System.out.println(exponent);
-        
-        if (exponent == 0) {
-            y.append(1);
-            return y;
-        }
-        
-        //Determine if the exponent is an even number
-        boolean expIsEven;
-        if (exponent % 2 == 1) {
-            expIsEven = true;
-        }
-        else {
-            expIsEven = false;
-        }
-
-        y.append(1);
-        while (exponent > 1) { 
-     LList newX = new LList();
-        newX = stringToList(listToString(x));
-    
-            if (!expIsEven) {
-                y = multiply(y, x);
-            }// end if
-            x = multiply(x, newX); //TODO FIX
-            exponent /= 2;
-        } // end while exponent > 0
-
-        //int y = 1;
-
-        //TODO Change this append and return value
-        return multiply(y, x);
-
-        
-    } // end exponent
-
-  */ 
-
+    Function to calulate the exponentiation of two linked lists
+    LList n is the exponent value (if calculating 2 ^ 4, n represents 4)
+    LList x is the value to be exponentiated. It represents 2 in the above example
+    */
     public LList exponent(LList n, LList x) {
         LList y = new LList();
         y.append(1); // firstly init our result to 1
@@ -510,8 +432,7 @@ class BigNumArithmetic {
             exponent /= 2; // then finally divide the exponent by 2
         }
         return y; 
-    }
-
+    } // end exponent()
 
 } // end class
 
