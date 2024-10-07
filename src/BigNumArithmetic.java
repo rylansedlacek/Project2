@@ -411,13 +411,15 @@ class BigNumArithmetic {
     LList n is the exponent value (if calculating 2 ^ 4, n represents 4)
     LList x is the value to be exponentiated. It represents 2 in the above example
     */
+
     public LList exponent(LList n, LList x) {
         LList y = new LList();
         y.append(1); // firstly init our result to 1
 
          String exponentString = listToString(n); // then convert our exponent to an int 
-         int exponent = Integer.parseInt(exponentString);
+        int exponent = Integer.parseInt(exponentString);
 
+        //  double exponent = Double.parseDouble(exponentString);  
 
         if (exponent == 0) { // if we try to square by zero we can just return y which is 1
             return y; 
@@ -429,14 +431,29 @@ class BigNumArithmetic {
             newX = stringToList(listToString(x));
 
             if (exponent % 2 == 1) { // if we have an odd exponent do this
-                y = multiply(y, x); // multiply resuly by x
+                y = multiply(x, y); // multiply resuly by x
+                exponent -= 1;
+               // System.out.println();
+//                System.out.println("ITS ODD ITS ODD:");
+              // System.out.println("Updated y after multiplying by x: " + listToString(y));
+             //  System.out.println("EXPONENT VALUE: " + exponent);
             }
             x = multiply(x, newX); // here we square x
+           // System.out.println("Squared x: " + listToString(x));
 
             exponent /= 2; // then finally divide the exponent by 2
+            //              System.out.println();
+           // System.out.println("AFTER DIVIDING BY 2:");
+           // System.out.println("EXPONENT VALUE: " + exponent);
         }
-        return y; 
+        return y;
     } // end exponent()
+    //
+    //
+
+
+
+
 
 } // end class
 
