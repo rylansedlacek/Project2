@@ -433,10 +433,6 @@ class BigNumArithmetic {
             if (exponent % 2 == 1) { // if we have an odd exponent do this
                 y = multiply(x, y); // multiply resuly by x
                 exponent -= 1;
-               // System.out.println();
-//                System.out.println("ITS ODD ITS ODD:");
-              // System.out.println("Updated y after multiplying by x: " + listToString(y));
-             //  System.out.println("EXPONENT VALUE: " + exponent);
             }
             x = multiply(x, newX); // here we square x
            // System.out.println("Squared x: " + listToString(x));
