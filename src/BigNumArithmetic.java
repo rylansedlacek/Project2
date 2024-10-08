@@ -366,7 +366,7 @@ class BigNumArithmetic {
         top.reverseLink(); // reverse our lists here
         bottom.reverseLink();
 
-         LList result = new LList(); // store the result in a new list
+        LList result = new LList(); // store the result in a new list
         result.append(0); 
 
         int bottomPosition = 0; // keep track of bottom position
@@ -406,96 +406,37 @@ class BigNumArithmetic {
     } // end multiply   
 
 
-
     /*
     Function to calulate the exponentiation of two linked lists
     LList n is the exponent value (if calculating 2 ^ 4, n represents 4)
     LList x is the value to be exponentiated. It represents 2 in the above example
     */
-
     public LList exponent(LList n, LList x) {
         LList y = new LList();
-        y.append(1); // firstly init our result to 1
+        y.append(1); // Y initially only contains the value 1
 
         String exponentString = listToString(n); // then convert our exponent to an int 
         int exponent = Integer.parseInt(exponentString);
 
-        //  double exponent = Double.parseDouble(exponentString);  
-
         if (exponent == 0) { // if we try to square by zero we can just return y which is 1
             return y; 
         }  
-
-        
+        // Keep x's original value
         LList originalX = stringToList(listToString(x)); 
+
         while (exponent > 1) {
-
-          // LList newX = new LList(); // do this to avoid mangling pointers!
-           //newX = stringToList(listToString(x));
-
-            if (exponent % 2 == 1) { // if we have an odd exponent do this
-                y = multiply(originalX, y); // multiply resuly by x
+            // when exponent is an odd number
+            if (exponent % 2 == 1) {
+                // y becomes equal to original x * y
+                y = multiply(originalX, y); 
+                // reduce exponent by 1
                 exponent = exponent - 1;
-            //exponent -= 1;
-            // System.out.println();
-            // System.out.println("ITS ODD ITS ODD:");
-            // System.out.println("Updated y after multiplying by x: " + listToString(y));
-            //  System.out.println("EXPONENT VALUE: " + exponent);
             }
-            x = multiply(x, stringToList(listToString(x))); // here we square x
-            
+            x = multiply(x, stringToList(listToString(x))); // multiply x by a copy of x, effectively squaring x
 
             exponent /= 2; // then finally divide the exponent by 2
-
         } 
         return multiply(x,y);
 
     } // end exponent()
-
-
-
-/*
-    public LList exponent(LList n, LList x) {
-        LList y = new LList();
-        y.append(1); // firstly init our result to 1
-
-         String exponentString = listToString(n); // then convert our exponent to an int 
-         int exponent = Integer.parseInt(exponentString);
-
-
-        if (exponent == 0) { // if we try to square by zero we can just return y which is 1
-            return y; 
-        }   
-
-        while (exponent > 0) {
-
-            LList newX = stringToList(listToString(x));; // do this to avoid mangling pointers!
-
-            if (exponent % 2 == 1) { // if we have an odd exponent do this
-                //y = multiply(y, x); // multiply resuly by x
-                y = multiply(y, x);;
-            }
-            x = multiply(x, newX); // here we square x
-            
-=======
-           // System.out.println("Squared x: " + listToString(x));
->>>>>>> 4c930fca4d2acee901fd90aaa6480ba7d670be9e
-
-            exponent /= 2; // then finally divide the exponent by 2
-            //              System.out.println();
-           // System.out.println("AFTER DIVIDING BY 2:");
-           // System.out.println("EXPONENT VALUE: " + exponent);
-        }
-        return y;
-    } // end exponent()
-    //
-    //
-
-
-
-
-
-*/
 } // end class
-
-
