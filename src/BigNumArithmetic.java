@@ -412,6 +412,7 @@ class BigNumArithmetic {
     LList x is the value to be exponentiated. It represents 2 in the above example
     */
     public LList exponent(LList n, LList x) {
+
         LList y = new LList();
         y.append(1); // Y initially only contains the value 1
 
@@ -421,9 +422,9 @@ class BigNumArithmetic {
         if (exponent == 0) { // if we try to square by zero we can just return y which is 1
             return y; 
         }  
+
         // Keep x's original value
         LList originalX = stringToList(listToString(x)); 
-
 
         while (exponent > 1) {
             // when exponent is an odd number
@@ -440,4 +441,5 @@ class BigNumArithmetic {
         return multiply(x,y);
 
     } // end exponent()
+    //
 } // end class
