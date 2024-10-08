@@ -417,35 +417,38 @@ class BigNumArithmetic {
         LList y = new LList();
         y.append(1); // firstly init our result to 1
 
-         String exponentString = listToString(n); // then convert our exponent to an int 
+        String exponentString = listToString(n); // then convert our exponent to an int 
         int exponent = Integer.parseInt(exponentString);
 
         //  double exponent = Double.parseDouble(exponentString);  
 
         if (exponent == 0) { // if we try to square by zero we can just return y which is 1
             return y; 
-        }   
+        }  
 
-        while (exponent > 0) {
+        
+        LList originalX = stringToList(listToString(x)); 
+        while (exponent > 1) {
 
-           LList newX = new LList(); // do this to avoid mangling pointers!
-           newX = stringToList(listToString(x));
+          // LList newX = new LList(); // do this to avoid mangling pointers!
+           //newX = stringToList(listToString(x));
 
             if (exponent % 2 == 1) { // if we have an odd exponent do this
-                y = multiply(x, y); // multiply resuly by x
-                exponent -= 1;
-               // System.out.println();
-//                System.out.println("ITS ODD ITS ODD:");
-              // System.out.println("Updated y after multiplying by x: " + listToString(y));
-             //  System.out.println("EXPONENT VALUE: " + exponent);
+                y = multiply(originalX, y); // multiply resuly by x
+                exponent = exponent - 1;
+            //exponent -= 1;
+            // System.out.println();
+            // System.out.println("ITS ODD ITS ODD:");
+            // System.out.println("Updated y after multiplying by x: " + listToString(y));
+            //  System.out.println("EXPONENT VALUE: " + exponent);
             }
-            x = multiply(x, newX); // here we square x
+            x = multiply(x, stringToList(listToString(x))); // here we square x
             
 
             exponent /= 2; // then finally divide the exponent by 2
 
         } 
-        return y;
+        return multiply(x,y);
 
     } // end exponent()
 
