@@ -10,7 +10,6 @@ class BigNumArithmetic {
         this.filename = filename;
     }
 
-    // TODO write a readme here just to explain what we are doing
 
     public static void main(String args[]) {
         if (args.length != 1) {
